@@ -1,4 +1,4 @@
-# 🚗 Sudden Unintended Acceleration (SUA) Incident Visualization (자동차 급발진 사고 시각화)
+# Sudden Unintended Acceleration (SUA) Incident Visualization (자동차 급발진 사고 시각화)
 
 ---
 
