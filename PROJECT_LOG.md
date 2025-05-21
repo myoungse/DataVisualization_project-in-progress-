@@ -11,6 +11,7 @@
 
 비록 제가 평범한 대학생이고 이 프로젝트가 얼마나 많은 사람들에게 도달할지는 알 수 없지만, 저의 최종 결과물이 대중에게 **"급발진 사고가 단순한 해프닝이 아니라 심각한 사회 문제이며, 많은 사람들이 그 피해를 받고 있구나"** 라는 인식을 심어줄 수 있기를 진심으로 바랍니다. 데이터 시각화를 통해 이 중요한 메시지를 전달하고, 궁극적으로는 이 문제에 대한 사회적 관심을 높이는 데 기여하고자 합니다.
 
+
 This project goes beyond simply visualizing data—it is my attempt to raise public awareness about the seriousness of sudden unintended acceleration (SUA) incidents, a significant social issue, and to provide data-driven insights.
 
 Since the middle of 2024, I have come across a series of news articles reporting SUA accidents, which made me realize that these incidents occur far more frequently and seriously than I had previously thought. In particular, I was moved by the heartbreaking cases where victims lost their lives or failed to receive proper compensation from car manufacturers due to the lack of a clear definition or explanation for SUA.
