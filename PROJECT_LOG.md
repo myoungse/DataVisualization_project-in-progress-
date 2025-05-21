@@ -58,7 +58,7 @@ Although I am just an ordinary university student and cannot predict how many pe
 * **다양한 시각화 차트**:
     * **Bar Chart**: 급발진 사고 발생 빈도 (연령대별, 차량 모델별 등)
     * **Radar Chart**: 사고 발생 시 환경 요인 (날씨, 도로 상태 등) 분석
-    * **Bubble Chart**: 사고 위치 및 피해 규모 (위치, 피해 정도, 재산 피해 규모 등)
+    * **Bubble Chart**: 사고 위치 및 피해 규모 (위치, 피해 정도 등)
     * **Donut Chart**: 특정 사고 요인 (급발진 의심 원인 등) 비율
     * **Heatmap**: 사고 다발 지역 및 시간대 패턴 분석
 * **인터랙티브 대시보드**: 사용자가 원하는 조건 (예: 특정 연도, 특정 제조사)으로 데이터를 필터링하고 시각화된 결과를 실시간으로 확인할 수 있는 기능
