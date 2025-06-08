@@ -1,11 +1,12 @@
-## 설치해야 할 것 (Need to install)
-- selenium
-- webdriver-manager
+## 📦 설치해야 할 것 (Need to install)
+- 🐍 selenium
+- 🔧 webdriver-manager
+- 🌐 chromedriver.exe (별도 설치 필요)
 
 ---
 
-## news_ori_duplicate 참고 사항 (Note)
-line 17의
+### 2️⃣ Chrome 드라이버 설정 (Note)
+**Line 17**의 코드에서:
 
 '''
 chrome_driver_path = r"chrone_driver_path"
@@ -17,11 +18,11 @@ chrome_driver_path = r"chrone_driver_path"
 
 ---
 
-### 설치 명령어
+## ⚙️ 설정 방법 (Setup)
+
+### 1️⃣ 패키지 설치
 
 pip install selenium webdriver-manager
-
----
 
 +) chromedriver.exe도 추가로 따로 설치해서 진행하였습니다.
 (+ I also installed chromedriver.exe separately and proceeded.)
