@@ -23,34 +23,35 @@ Although I am just an ordinary university student and cannot predict how many pe
 ---
 
 ## 🗓️ Project Timeline & Progress (프로젝트 타임라인 및 진행 상황)
-* **Phase 1: Data Acquisition & Preprocessing (데이터 수집 및 전처리)**
-    * 목표: 급발진 사고 관련 뉴스 기사 데이터 확보 및 정제
-    * 진행 상황: Beautiful Soup 및 Requests 라이브러리를 활용한 웹 크롤링 스크립트 개발 예정. 뉴스 기사 내의 사고 발생 시간, 장소, 차량 정보, 피해 내용 등 핵심 정보 추출 및 정규화 작업 계획 중.
-    * 마일스톤: 초기 데이터셋 1차 수집 및 JSON 형식 저장 완료.
 
-* **Phase 2: Database Design & Implementation (데이터베이스 설계 및 구현)**
-    * 목표: 정제된 데이터를 효율적으로 저장하고 관리할 수 있는 데이터베이스 구축
-    * 진행 상황: SQLite 데이터베이스 스키마 설계 예정. JSON 형식의 1차 데이터를 SQLite로 마이그레이션하는 작업 계획 중.
-    * 마일스톤: SQLite DB 스키마 확정 및 데이터 로딩 완료.
+### Phase 1: Data Acquisition & Preprocessing (데이터 수집 및 전처리)
+- **목표**: 급발진 사고 관련 뉴스 기사 데이터 확보 및 정제
+- **진행 상황**: Selenium을 활용한 웹 크롤링 스크립트 개발 예정. 뉴스 기사 내의 사고 발생 시간, 장소, 차량 정보, 피해 내용 등 핵심 정보 추출 및 정규화 작업 계획 중.
+- **마일스톤**: 초기 데이터셋 1차 수집 및 JSON 형식 저장 완료
 
-* **Phase 3: API Development (API 개발)**
-    * 목표: 프론트엔드 시각화 도구(D3.js)와 데이터베이스 간의 통신을 위한 API 구축
-    * 진행 상황: Flask 프레임워크를 활용하여 SQLite DB에서 데이터를 조회하고 D3.js가 필요로 하는 형태로 데이터를 제공하는 RESTful API 개발 예정.
-    * 마일스톤: 핵심 데이터 조회 API 엔드포인트 구현 완료.
+### Phase 2: Data Storage & Management (데이터 저장 및 관리)
+- **목표**: 정제된 데이터를 효율적으로 저장하고 관리할 수 있는 시스템 구축
+- **진행 상황**: JSON 형식으로 수집된 데이터를 체계적으로 구조화하고 관리하는 작업 계획 중
+- **마일스톤**: JSON 데이터 구조 확정 및 데이터 저장 완료
 
-* **Phase 4: Data Visualization Implementation (데이터 시각화 구현)**
-    * 목표: 수집 및 정제된 데이터를 활용하여 사용자 친화적인 시각화 대시보드 개발
-    * 진행 상황: D3.js를 사용하여 다양한 시각화 차트 (예: Bar Chart, Radar Chart, Bubble Chart, Donut Chart, Heatmap 등) 구현 예정. 사용자가 데이터를 필터링하고 상호작용할 수 있도록 인터랙티브 기능 추가 계획 중.
-    * 마일스톤: 주요 시각화 차트 프로토타입 구현 완료.
+### Phase 3: Data Processing & Analysis (데이터 처리 및 분석)
+- **목표**: 프론트엔드 시각화 도구(D3.js)에서 활용할 수 있도록 데이터 가공
+- **진행 상황**: JSON 데이터를 D3.js가 필요로 하는 형태로 변환하고 처리하는 로직 개발 예정
+- **마일스톤**: 핵심 데이터 처리 로직 구현 완료
+
+### Phase 4: Data Visualization Implementation (데이터 시각화 구현)
+- **목표**: 수집 및 정제된 데이터를 활용하여 사용자 친화적인 시각화 대시보드 개발
+- **진행 상황**: D3.js를 사용하여 다양한 시각화 차트 (예: Bar Chart, Radar Chart, Bubble Chart, Donut Chart, Heatmap 등) 구현 예정. 사용자가 데이터를 필터링하고 상호작용할 수 있도록 인터랙티브 기능 추가 계획 중
+- **마일스톤**: 주요 시각화 차트 프로토타입 구현 완료
 
 ---
 
 ## 🛠️ Technologies Used (사용 기술)
-* **Data Collection & Preprocessing:** Python, Beautiful Soup, Requests
-* **Data Storage:** JSON (for initial raw data), SQLite (for structured data)
-* **Backend & API:** Python, Flask
-* **Frontend & Visualization:** HTML, CSS, JavaScript, D3.js
-* **Version Control:** Git, GitHub
+- **Data Collection & Preprocessing:** Python, Selenium
+- **Data Storage:** JSON
+- **Data Processing & Analysis:** Python
+- **Frontend & Visualization:** HTML, CSS, JavaScript, D3.js
+- **Version Control:** Git, GitHub
 
 ---
 
