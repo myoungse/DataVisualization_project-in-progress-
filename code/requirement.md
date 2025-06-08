@@ -8,9 +8,7 @@
 ### 2️⃣ Chrome 드라이버 설정 (Note)
 **Line 17**의 코드에서:
 
-'''
-chrome_driver_path = r"chrone_driver_path"
-'''
+`chrome_driver_path = r"chrone_driver_path"`
 
 `r"chrome_driver_path"` 에서 `""` 안의 내용을 본인 컴퓨터에 설치된 chromedriver.exe를 찾아 해당 경로를 복사해서 넣어야 합니다.
 
