@@ -1,0 +1,218 @@
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
+import time
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
+import json
+from datetime import datetime
+import urllib.parse
+
+# Chrome 드라이버 설정
+options = webdriver.ChromeOptions()
+options.add_argument('--no-sandbox')
+options.add_argument('--disable-dev-shm-usage')
+# options.add_argument('--headless')  # 필요시 주석 해제
+
+chrome_driver_path = r"driver_path" # 본인 chrome_driver_path 경로 넣으시면 됩니다.
+service = Service(chrome_driver_path)
+driver = webdriver.Chrome(service=service, options=options)
+
+def scroll_down():
+    """페이지 스크롤"""
+    for i in range(3):
+        driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+        time.sleep(1)
+
+def is_urgent_acceleration_news(title, content=""):
+    """급발진 관련 뉴스인지 확인"""
+    keywords = ['급발진', '갑발진', '급가속']
+    text_to_check = (title + " " + content).lower()
+    
+    return any(keyword in text_to_check for keyword in keywords)
+
+def get_article_content(url):
+    """기사 본문 추출"""
+    try:
+        driver.get(url)
+        time.sleep(3)
+        
+        # 제목 추출
+        title = ""
+        title_selectors = ['.article_title', '.news_title', 'h1.title', 'h1']
+        for selector in title_selectors:
+            try:
+                element = driver.find_element(By.CSS_SELECTOR, selector)
+                title = element.text.strip()
+                if title:
+                    break
+            except:
+                continue
+        
+        # 본문 추출
+        content = ""
+        content_selectors = ['.article_cont', '.news_cont', '.article_body', '.text_area', '.cont_area']
+        for selector in content_selectors:
+            try:
+                element = driver.find_element(By.CSS_SELECTOR, selector)
+                content = element.text.strip()
+                if len(content) > 100:  # 충분한 길이의 본문
+                    break
+            except:
+                continue
+        
+        # 본문이 없으면 p 태그들에서 추출
+        if not content:
+            try:
+                paragraphs = driver.find_elements(By.TAG_NAME, 'p')
+                content_parts = []
+                for p in paragraphs:
+                    text = p.text.strip()
+                    if len(text) > 20:  # 의미있는 문단만
+                        content_parts.append(text)
+                content = '\n\n'.join(content_parts)
+            except:
+                content = "본문 추출 실패"
+        
+        return title, content
+        
+    except Exception as e:
+        print(f"본문 추출 오류: {e}")
+        return "", "본문 추출 실패"
+
+def collect_urgent_acceleration_news(max_pages=5):
+    """급발진 뉴스 수집"""
+    
+    all_articles = []
+    search_query = "급발진"
+    
+    print(f"급발진 뉴스 수집 시작 (최대 {max_pages}페이지)")
+    
+    for page in range(1, max_pages + 1):
+        print(f"\n--- {page}페이지 수집 중 ---")
+        
+        # SBS 뉴스 검색 URL
+        encoded_query = urllib.parse.quote(search_query)
+        search_url = f"https://news.sbs.co.kr/news/search/result.do?query={encoded_query}&tabIdx=2&pageIdx={page}&dateRange=all"
+        
+        try:
+            driver.get(search_url)
+            time.sleep(4)
+            scroll_down()
+            
+            # 모든 링크 찾기
+            links = driver.find_elements(By.TAG_NAME, 'a')
+            page_articles = []
+            
+            for link in links:
+                try:
+                    href = link.get_attribute('href')
+                    link_text = link.text.strip()
+                    
+                    # SBS 뉴스 기사 링크인지 확인
+                    if (href and 'news.sbs.co.kr' in href and 
+                        ('newsEndPage' in href or '/news/' in href) and
+                        len(link_text) > 10):
+                        
+                        # 급발진 관련인지 1차 확인
+                        if is_urgent_acceleration_news(link_text):
+                            
+                            # URL 정규화
+                            if href.startswith('//'):
+                                href = 'https:' + href
+                            elif href.startswith('/'):
+                                href = 'https://news.sbs.co.kr' + href
+                            
+                            # 중복 체크
+                            if not any(article['url'] == href for article in all_articles):
+                                page_articles.append({
+                                    'title': link_text,
+                                    'url': href
+                                })
+                                
+                except Exception:
+                    continue
+            
+            print(f"{page}페이지에서 {len(page_articles)}개 기사 발견")
+            
+            # 각 기사 본문 추출
+            for i, article_info in enumerate(page_articles, 1):
+                print(f"  [{i}/{len(page_articles)}] {article_info['title'][:40]}... 처리중")
+                
+                title, content = get_article_content(article_info['url'])
+                
+                # 제목이 없으면 링크 텍스트 사용
+                if not title:
+                    title = article_info['title']
+                
+                # 급발진 관련성 2차 확인
+                if is_urgent_acceleration_news(title, content):
+                    all_articles.append({
+                        'title': title,
+                        'content': content,
+                        'url': article_info['url']
+                    })
+                    print(f"    ✓ 급발진 관련 기사 확인 (본문 {len(content)}자)")
+                else:
+                    print(f"    ✗ 급발진 관련성 부족으로 제외")
+                
+                time.sleep(2)  # 서버 부하 방지
+            
+            time.sleep(3)  # 페이지 간 딜레이
+            
+        except Exception as e:
+            print(f"{page}페이지 처리 중 오류: {e}")
+            continue
+    
+    return all_articles
+
+def main():
+    try:
+        print("=== SBS 급발진 뉴스 크롤러 시작 ===")
+        
+        # 급발진 뉴스 수집
+        articles = collect_urgent_acceleration_news(max_pages=5)
+        
+        print(f"\n=== 수집 완료 ===")
+        print(f"총 {len(articles)}개의 급발진 관련 기사 수집")
+        
+        if articles:
+            # JSON 파일로 저장
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            filename = f"급발진_뉴스_{timestamp}.json"
+            
+            # 저장할 데이터 구조
+            save_data = {
+                'collected_at': datetime.now().isoformat(),
+                'total_articles': len(articles),
+                'articles': articles
+            }
+            
+            with open(filename, 'w', encoding='utf-8') as f:
+                json.dump(save_data, f, ensure_ascii=False, indent=2)
+            
+            print(f"\n결과가 '{filename}' 파일로 저장되었습니다.")
+            
+            # 수집된 기사 목록 출력
+            print(f"\n=== 수집된 급발진 기사 목록 ===")
+            for i, article in enumerate(articles, 1):
+                print(f"\n{i}. 제목: {article['title']}")
+                print(f"   URL: {article['url']}")
+                print(f"   본문 길이: {len(article['content'])}자")
+                print(f"   본문 미리보기: {article['content'][:100]}...")
+                print("-" * 100)
+        else:
+            print("급발진 관련 기사를 찾을 수 없습니다.")
+    
+    except Exception as e:
+        print(f"크롤링 중 오류: {e}")
+    
+    finally:
+        try:
+            driver.quit()
+            print("\n브라우저 종료 완료")
+        except:
+            pass
+
+if __name__ == "__main__":
+    main()
