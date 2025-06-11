@@ -22,7 +22,7 @@ Although I am just an ordinary university student and cannot predict how many pe
 
 ---
 
-## 🗓️ Project Timeline & Progress (프로젝트 타임라인)
+## 🗓️ Project Timeline & Progress (프로젝트 타임라인) 
 
 ### Phase 1: Data Acquisition & Preprocessing (데이터 수집 및 전처리)
 - **목표**: 급발진 사고 관련 뉴스 기사 데이터 확보 및 정제
@@ -71,6 +71,12 @@ Although I am just an ordinary university student and cannot predict how many pe
 
 ## 🔗 Live Demo / Screenshots / Video (Optional)
 
+
+---
+
+## Project progress period
+
+2025.05.19 - 2025.06.21
 
 ---
 
