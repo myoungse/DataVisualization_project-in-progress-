@@ -60,7 +60,7 @@ Although I am just an ordinary university student and cannot predict how many pe
 ---
 
 ## 💡 Development Process & Challenges (개발 과정 및 직면했던 문제)
-- 초반에 크롤링 코드를 짤 때, 어떻게 틀을 짜야하나 고민을 오래 했다.
+- 초반에 크롤링 코드를 짤 때, 어떻게 틀을 짜야하나 고민을 오래했다.
 - 뉴스 기사 데이터들을 크롤링할 때 크롤링 코드를 중간중간 수정했지만 내가 원하는 쿼리 키워드를 완벽하게 들고오지 못했다. (일일이 기사 보면서 수작업으로 수정했다.)
 
 ---
