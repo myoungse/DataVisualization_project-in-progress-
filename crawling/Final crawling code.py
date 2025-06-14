@@ -20,7 +20,7 @@ options.add_argument('--no-sandbox')
 options.add_argument('--disable-dev-shm-usage')
 # options.add_argument('--headless')  # 필요시 주석 해제
 
-chrome_driver_path = r"C:\Users\ekbin\.wdm\drivers\chromedriver\win64\136.0.7103.113\chromedriver-win32\chromedriver.exe"
+chrome_driver_path = r"chrome_driver_path"
 service = Service(chrome_driver_path)
 driver = webdriver.Chrome(service=service, options=options)
 
